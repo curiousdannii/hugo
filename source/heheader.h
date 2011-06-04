@@ -45,9 +45,56 @@ extern char *token[];
 	RISCOS
 	WIN32     (Microsoft Visual C++)
 	WXWINDOWS (wxWindows for Mac or Gtk)
+	QT        (Qt for Linux, Mac, Windows)
 
    (although this is typically done in the makefile)
 */
+
+
+/*---------------------------------------------------------------------------
+	Definitions for Qt, using any compiler.
+
+	by Nikos Chantziaras
+---------------------------------------------------------------------------*/
+
+#if defined (QT)
+
+#define PORTER_NAME "Nikos Chantziaras"
+#define PORT_NAME "Qt"
+#define PROGRAM_NAME "heqt"
+
+#define DEF_PRN ""
+
+#define MAXPATH         256
+#define MAXDRIVE        256
+#define MAXDIR          256
+#define MAXFILENAME     256
+#define MAXEXT          256
+
+#define DEF_FCOLOR      0
+#define DEF_BGCOLOR     15
+#define DEF_SLFCOLOR	15
+#define DEF_SLBGCOLOR	1
+
+#define MAXBUFFER 255
+#define MAXUNDO 1024
+
+#define HUGO_INLINE static __inline
+
+#define PRINTFATALERROR printFatalError
+void printFatalError( char* a );
+#define NO_TERMINAL_LINEFEED
+#define FRONT_END
+#define GRAPHICS_SUPPORTED
+#define SOUND_SUPPORTED
+/*#define USE_TEXTBUFFER*/
+/*#define SCROLLBACK_DEFINED*/
+
+/*extern void PrintFatalError(char *a);*/
+/*#define PRINTFATALERROR(a) PrintFatalError(a);*/
+
+#endif  /* defined (QT) */
+
 
 /*---------------------------------------------------------------------------
 	Definitions for the Acorn Archimedes & RPC
@@ -489,7 +536,7 @@ extern FILE *hugo_fopen (char *filename, char *mode);
 	by Kent Tessman
 ---------------------------------------------------------------------------*/
 
-#if defined (WIN32) && !defined (WXWINDOWS)
+#if defined (WIN32) && !defined (WXWINDOWS) && !defined (QT)
 
 #ifdef UNDER_CE
 #define PORT_NAME "WinCE"

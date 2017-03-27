@@ -941,7 +941,10 @@ void FileIO(void)
 
 		fref = glk_fileref_create_by_name(fileusage_Data | fileusage_BinaryMode,
 			fileiopath, 0);
-		io = glk_stream_open_file(fref, filemode_Write, 0);
+		if (glk_fileref_does_file_exist(fref))
+			io = glk_stream_open_file(fref, filemode_Read, 0);
+		else
+			io = NULL;
 		glk_fileref_destroy(fref);
 		if (io==NULL) goto LeaveFileIO;
 #endif
@@ -2080,7 +2083,10 @@ int RecordCommands(void)
 
 				fref = glk_fileref_create_by_prompt(fileusage_InputRecord | fileusage_TextMode,
 					filemode_Read, 0);
-				playback = glk_stream_open_file(fref, filemode_Read, 0);
+				if (glk_fileref_does_file_exist(fref))
+					playback = glk_stream_open_file(fref, filemode_Read, 0);
+				else
+					playback = NULL;
 				glk_fileref_destroy(fref);
 				if (!playback)
 					return 0;
@@ -2244,16 +2250,16 @@ char SpecialChar(char *a, int *i)
 #ifndef NO_LATIN1_CHARSET
 			switch (s)
 			{
-				case 'a':  s = (char)0xe0; break; /* à */
-				case 'e':  s = (char)0xe8; break; /* è */
-				case 'i':  s = (char)0xec; break; /* ì */
-				case 'o':  s = (char)0xf2; break; /* ò */
-				case 'u':  s = (char)0xf9; break; /* ù */
-				case 'A':  s = (char)0xc0; break; /* À */
-				case 'E':  s = (char)0xc8; break; /* È */
-				case 'I':  s = (char)0xcc; break; /* Ì */
-				case 'O':  s = (char)0xd2; break; /* Ò */
-				case 'U':  s = (char)0xd9; break; /* Ù */
+				case 'a':  s = (char)0xe0; break; /* ï¿½ */
+				case 'e':  s = (char)0xe8; break; /* ï¿½ */
+				case 'i':  s = (char)0xec; break; /* ï¿½ */
+				case 'o':  s = (char)0xf2; break; /* ï¿½ */
+				case 'u':  s = (char)0xf9; break; /* ï¿½ */
+				case 'A':  s = (char)0xc0; break; /* ï¿½ */
+				case 'E':  s = (char)0xc8; break; /* ï¿½ */
+				case 'I':  s = (char)0xcc; break; /* ï¿½ */
+				case 'O':  s = (char)0xd2; break; /* ï¿½ */
+				case 'U':  s = (char)0xd9; break; /* ï¿½ */
 			}
 #endif
 			break;
@@ -2264,18 +2270,18 @@ char SpecialChar(char *a, int *i)
 #ifndef NO_LATIN1_CHARSET
 			switch (s)
 			{
-				case 'a':  s = (char)0xe1; break; /* á */
-				case 'e':  s = (char)0xe9; break; /* é */
-				case 'i':  s = (char)0xed; break; /* í */
-				case 'o':  s = (char)0xf3; break; /* ó */
-				case 'u':  s = (char)0xfa; break; /* ú */
+				case 'a':  s = (char)0xe1; break; /* ï¿½ */
+				case 'e':  s = (char)0xe9; break; /* ï¿½ */
+				case 'i':  s = (char)0xed; break; /* ï¿½ */
+				case 'o':  s = (char)0xf3; break; /* ï¿½ */
+				case 'u':  s = (char)0xfa; break; /* ï¿½ */
 				case 'y':  s = (char)0xfd; break;
-				case 'A':  s = (char)0xc1; break; /* Á */
-				case 'E':  s = (char)0xc9; break; /* É */
-				case 'I':  s = (char)0xcd; break; /* Í */
-				case 'O':  s = (char)0xd3; break; /* Ó */
-				case 'U':  s = (char)0xda; break; /* Ú */
-				case 'Y':  s = (char)0xdd; break; /* Ý */
+				case 'A':  s = (char)0xc1; break; /* ï¿½ */
+				case 'E':  s = (char)0xc9; break; /* ï¿½ */
+				case 'I':  s = (char)0xcd; break; /* ï¿½ */
+				case 'O':  s = (char)0xd3; break; /* ï¿½ */
+				case 'U':  s = (char)0xda; break; /* ï¿½ */
+				case 'Y':  s = (char)0xdd; break; /* ï¿½ */
 			}
 #endif
 			break;
@@ -2286,12 +2292,12 @@ char SpecialChar(char *a, int *i)
 #ifndef NO_LATIN1_CHARSET
 			switch (s)
 			{
-				case 'a':  s = (char)0xe3; break; /* ã */
-				case 'n':  s = (char)0xf1; break; /* ñ */
-				case 'o':  s = (char)0xf5; break; /* õ */
-				case 'A':  s = (char)0xc3; break; /* Ã */
-				case 'N':  s = (char)0xd1; break; /* Ñ */
-				case 'O':  s = (char)0xd5; break; /* Õ */
+				case 'a':  s = (char)0xe3; break; /* ï¿½ */
+				case 'n':  s = (char)0xf1; break; /* ï¿½ */
+				case 'o':  s = (char)0xf5; break; /* ï¿½ */
+				case 'A':  s = (char)0xc3; break; /* ï¿½ */
+				case 'N':  s = (char)0xd1; break; /* ï¿½ */
+				case 'O':  s = (char)0xd5; break; /* ï¿½ */
 			}
 #endif
 			break;
@@ -2302,16 +2308,16 @@ char SpecialChar(char *a, int *i)
 #ifndef NO_LATIN1_CHARSET
 			switch (s)
 			{
-				case 'a':  s = (char)0xe2; break; /* â */
-				case 'e':  s = (char)0xea; break; /* ê */
-				case 'i':  s = (char)0xee; break; /* î */
-				case 'o':  s = (char)0xf4; break; /* ô */
-				case 'u':  s = (char)0xfb; break; /* û */
-				case 'A':  s = (char)0xc2; break; /* Â */
-				case 'E':  s = (char)0xca; break; /* Ê */
-				case 'I':  s = (char)0xce; break; /* Î */
-				case 'O':  s = (char)0xd4; break; /* Ô */
-				case 'U':  s = (char)0xdb; break; /* Û */
+				case 'a':  s = (char)0xe2; break; /* ï¿½ */
+				case 'e':  s = (char)0xea; break; /* ï¿½ */
+				case 'i':  s = (char)0xee; break; /* ï¿½ */
+				case 'o':  s = (char)0xf4; break; /* ï¿½ */
+				case 'u':  s = (char)0xfb; break; /* ï¿½ */
+				case 'A':  s = (char)0xc2; break; /* ï¿½ */
+				case 'E':  s = (char)0xca; break; /* ï¿½ */
+				case 'I':  s = (char)0xce; break; /* ï¿½ */
+				case 'O':  s = (char)0xd4; break; /* ï¿½ */
+				case 'U':  s = (char)0xdb; break; /* ï¿½ */
 			}
 #endif
 			break;
@@ -2322,17 +2328,17 @@ char SpecialChar(char *a, int *i)
 #ifndef NO_LATIN1_CHARSET
 			switch (s)
 			{
-				case 'a':  s = (char)0xe4; break; /* ä */
-				case 'e':  s = (char)0xeb; break; /* ë */
-				case 'i':  s = (char)0xef; break; /* ï */
-				case 'o':  s = (char)0xf6; break; /* ö */
-				case 'u':  s = (char)0xfc; break; /* ü */
-				/* case 'y':  s = (char)0xff; break; */ /* ÿ */
-				case 'A':  s = (char)0xc4; break; /* Ä */
-				case 'E':  s = (char)0xcb; break; /* Ë */
-				case 'I':  s = (char)0xcf; break; /* Ï */
-				case 'O':  s = (char)0xd6; break; /* Ö */
-				case 'U':  s = (char)0xdc; break; /* Ü */
+				case 'a':  s = (char)0xe4; break; /* ï¿½ */
+				case 'e':  s = (char)0xeb; break; /* ï¿½ */
+				case 'i':  s = (char)0xef; break; /* ï¿½ */
+				case 'o':  s = (char)0xf6; break; /* ï¿½ */
+				case 'u':  s = (char)0xfc; break; /* ï¿½ */
+				/* case 'y':  s = (char)0xff; break; */ /* ï¿½ */
+				case 'A':  s = (char)0xc4; break; /* ï¿½ */
+				case 'E':  s = (char)0xcb; break; /* ï¿½ */
+				case 'I':  s = (char)0xcf; break; /* ï¿½ */
+				case 'O':  s = (char)0xd6; break; /* ï¿½ */
+				case 'U':  s = (char)0xdc; break; /* ï¿½ */
 			}
 #endif
 			break;
@@ -2343,64 +2349,64 @@ char SpecialChar(char *a, int *i)
 #ifndef NO_LATIN1_CHARSET
 			switch (s)
 			{
-				case 'C':  s = (char)0xc7; break; /* Ç */
-				case 'c':  s = (char)0xe7; break; /* ç */
+				case 'C':  s = (char)0xc7; break; /* ï¿½ */
+				case 'c':  s = (char)0xe7; break; /* ï¿½ */
 			}
 #endif
 			break;
 		}
 		case '<':               /* Spanish left quotation marks */
 #ifndef NO_LATIN1_CHARSET
-			s = (char)0xab; /* « */
+			s = (char)0xab; /* ï¿½ */
 #endif
 			break;
 		case '>':               /* Spanish right quotation marks */
 #ifndef NO_LATIN1_CHARSET
-			s = (char)0xbb; /* » */
+			s = (char)0xbb; /* ï¿½ */
 			break;
 #endif
 		case '!':               /* upside-down exclamation mark */
 #ifndef NO_LATIN1_CHARSET
-			s = (char)0xa1; /* ¡ */
+			s = (char)0xa1; /* ï¿½ */
 #endif
 			break;
 		case '?':               /* upside-down question mark */
 #ifndef NO_LATIN1_CHARSET
-			s = (char)0xbf; /* ¿ */
+			s = (char)0xbf; /* ï¿½ */
 #endif
 			break;
 		case 'a':               /* ae ligature */
 #ifndef NO_LATIN1_CHARSET
-			s = (char)0xe6; ++*i; /* æ */
+			s = (char)0xe6; ++*i; /* ï¿½ */
 #else
 			s = 'e'; ++*i;
 #endif
 			break;
 		case 'A':               /* AE ligature */
 #ifndef NO_LATIN1_CHARSET
-			s = (char)0xc6; ++*i; /* Æ */
+			s = (char)0xc6; ++*i; /* ï¿½ */
 #else
 			s = 'E'; ++*i;
 #endif
 			break;
 		case 'c':               /* cents symbol */
 #ifndef NO_LATIN1_CHARSET
-			s = (char)0xa2; /* ¢ */
+			s = (char)0xa2; /* ï¿½ */
 #endif
 			break;
 		case 'L':               /* British pound */
 #ifndef NO_LATIN1_CHARSET
-			s = (char)0xa3; /* £ */
+			s = (char)0xa3; /* ï¿½ */
 #endif
 			break;
 		case 'Y':               /* Japanese Yen */
 #ifndef NO_LATIN1_CHARSET
-			s = (char)0xa5; /* ¥ */
+			s = (char)0xa5; /* ï¿½ */
 #endif
 			break;
 		case '-':               /* em dash */
 #ifndef NO_LATIN1_CHARSET
-			/* s = (char)0x97; */ /* — */
+			/* s = (char)0x97; */ /* ï¿½ */
 #endif
 			break;
 		case '#':               /* 3-digit decimal code */

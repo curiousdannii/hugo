@@ -60,4 +60,5 @@ void emhugoen(char * data, glui32 dataSize)
 	hugo_blockfree(mem);
 	mem = NULL;
 	hugo_closefiles();
+	glk_exit();
 }

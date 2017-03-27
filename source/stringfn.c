@@ -182,7 +182,7 @@ char *itoa(int a, char *buf, int base)
 	return buf;
 }
 
-char *strlwr(char *s)
+/*char *strlwr(char *s)
 {
 	int i;
 
@@ -193,7 +193,7 @@ char *strlwr(char *s)
 		i++;
 	}
 	return s;
-}
+}*/
 
 char *strnset(char *s, int c, size_t l)
 {
@@ -203,7 +203,7 @@ char *strnset(char *s, int c, size_t l)
 	return s;
 }
 
-char *strupr(char *s)
+/*char *strupr(char *s)
 {
 	int i;
 
@@ -214,7 +214,7 @@ char *strupr(char *s)
 		i++;
 	}
 	return s;
-}
+}*/
 
 #endif
 

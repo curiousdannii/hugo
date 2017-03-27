@@ -1,6 +1,7 @@
-# heglk makefile for gcc
+# heglk makefile for emglken
 
-TARGET=heglk
+GLK = emglken
+TARGET=hugo.js
 
 # Directory defaults--these may have to be changed depending on where
 # things live on your system.  It assumes the layout:
@@ -9,13 +10,28 @@ TARGET=heglk
 #	hugo/xglk   - XGlk library directory (with glk.h and libxglk.a)
 SOURCE_DIR=../source
 NONPORTABLE_DIR=.
-GLK_DIR=../xglk
-XLIB_DIR=/usr/X11R6/lib
+GLK_DIR=../../$(GLK)
+XLIB_DIR=/usr/lib
 
 # PORT_NAME is for file-naming:
 PORT_NAME=glk
-COMPILE=gcc
-LINK=gcc
+
+GLKINCLUDEDIR = $(GLK_DIR)
+CC = emcc \
+	-O3 \
+	--js-library $(GLKINCLUDEDIR)/library.js \
+	--pre-js pre.js \
+	--post-js post.js \
+	-s EMTERPRETIFY=1 \
+	-s EMTERPRETIFY_ASYNC=1 \
+	-s EMTERPRETIFY_WHITELIST='["_emhugoen","_glem_fileref_create_by_prompt","_glem_select","_gidispatch_call","_glk_fileref_create_by_prompt","_glk_select"]' \
+	-s EXPORT_NAME='"Hugo"' \
+	-s EXPORTED_FUNCTIONS='["_emhugoen"]'
+
+include $(GLKINCLUDEDIR)/Make.$(GLK)
+
+COMPILE=$(CC)
+LINK=$(CC)
 
 DEFINES=-DCOMPILE_V25 -DGLK -DNO_KEYPRESS_CURSOR -DHUGO_INLINE=static\ inline
 WFLAGS=-Wall
@@ -24,15 +40,15 @@ OFLAGS=-O3
 CFLAGS=-I$(SOURCE_DIR) -I$(GLK_DIR) $(WFLAGS) $(OFLAGS) $(DFLAGS) $(DEFINES) -c
 
 OBJ_EXT=o
-NONPORTABLE_OBJS=he$(PORT_NAME).$(OBJ_EXT) heglkunix.o
+NONPORTABLE_OBJS=he$(PORT_NAME).$(OBJ_EXT) emhugoen.$(OBJ_EXT)
 
 OBJS=he.$(OBJ_EXT) heexpr.$(OBJ_EXT) hemisc.$(OBJ_EXT) heobject.$(OBJ_EXT) heparse.$(OBJ_EXT) heres.$(OBJ_EXT) herun.$(OBJ_EXT) heset.$(OBJ_EXT) stringfn.$(OBJ_EXT) $(NONPORTABLE_OBJS)
 
-heglk: $(OBJS)
-	$(LINK) -o $(TARGET) $(OBJS) -L$(GLK_DIR) -lxglk -L$(XLIB_DIR) -lX11 -lpng
+hugo.js: $(OBJS)
+	$(LINK) -o $(TARGET) $(OBJS) -L$(GLK_DIR) -L$(XLIB_DIR) -lX11 $(GLKLIB)
 
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJS) hugo.js*
 
 # Portable sources:
 
@@ -68,6 +84,9 @@ stringfn.$(OBJ_EXT): $(SOURCE_DIR)/stringfn.c
 
 he$(PORT_NAME).$(OBJ_EXT): $(NONPORTABLE_DIR)/he$(PORT_NAME).c
 	$(COMPILE) $(CFLAGS) $(NONPORTABLE_DIR)/he$(PORT_NAME).c
+
+emhugo.$(OBJ_EXT): $(NONPORTABLE_DIR)/emhugoen.c
+	$(COMPILE) $(CFLAGS) $(NONPORTABLE_DIR)/emhugoen.c
 
 heglkunix.o: $(NONPORTABLE_DIR)/heglkunix.c
 	$(COMPILE) $(CFLAGS) $(NONPORTABLE_DIR)/heglkunix.c

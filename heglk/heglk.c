@@ -15,7 +15,7 @@ int hugo_color(int c);
 
 
 /* Glk main window: */
-static winid_t mainwin = NULL;
+winid_t mainwin = NULL;
 
 /* Usually the statusline window: */
 static winid_t secondwin = NULL;
@@ -25,7 +25,7 @@ static winid_t secondwin = NULL;
 static winid_t auxwin = NULL;
 
 /* A virtual window that points to one of the three above: */
-static winid_t currentwin = NULL;
+winid_t currentwin = NULL;
 
 #define CHARWIDTH 1
 int in_valid_window = false;

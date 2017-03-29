@@ -44,7 +44,7 @@ NONPORTABLE_OBJS=he$(PORT_NAME).$(OBJ_EXT) emhugoen.$(OBJ_EXT)
 
 OBJS=he.$(OBJ_EXT) heexpr.$(OBJ_EXT) hemisc.$(OBJ_EXT) heobject.$(OBJ_EXT) heparse.$(OBJ_EXT) heres.$(OBJ_EXT) herun.$(OBJ_EXT) heset.$(OBJ_EXT) stringfn.$(OBJ_EXT) $(NONPORTABLE_OBJS)
 
-hugo.js: Makefile $(OBJS) $(GLKINCLUDEDIR)/Make.$(GLK) $(GLKINCLUDEDIR)/libemglken.a
+hugo.js: Makefile pre.js post.js $(OBJS) $(GLKINCLUDEDIR)/Make.$(GLK) $(GLKINCLUDEDIR)/libemglken.a
 	$(LINK) -o $(TARGET) $(OBJS) -L$(GLK_DIR) -L$(XLIB_DIR) -lX11 $(GLKLIB)
 
 clean:
@@ -85,7 +85,7 @@ stringfn.$(OBJ_EXT): $(SOURCE_DIR)/stringfn.c
 he$(PORT_NAME).$(OBJ_EXT): $(NONPORTABLE_DIR)/he$(PORT_NAME).c
 	$(COMPILE) $(CFLAGS) $(NONPORTABLE_DIR)/he$(PORT_NAME).c
 
-emhugo.$(OBJ_EXT): $(NONPORTABLE_DIR)/emhugoen.c
+emhugoen.$(OBJ_EXT): $(NONPORTABLE_DIR)/emhugoen.c
 	$(COMPILE) $(CFLAGS) $(NONPORTABLE_DIR)/emhugoen.c
 
 heglkunix.o: $(NONPORTABLE_DIR)/heglkunix.c

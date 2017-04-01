@@ -24,9 +24,11 @@ CC = emcc \
 	--post-js post.js \
 	-s EMTERPRETIFY=1 \
 	-s EMTERPRETIFY_ASYNC=1 \
-	-s EMTERPRETIFY_WHITELIST='["_CallRoutine","_emhugoen","_GetCommand","_glem_fileref_create_by_prompt","_glem_select","_gidispatch_call","_glk_fileref_create_by_prompt","_glk_select","_hugo_getline","_hugo_timewait","_hugo_waitforkey","_InitGame","_PromptMore","_RunGame","_RunInput","_RunRoutine","_RunSystem"]' \
 	-s EXPORT_NAME='"Hugo"' \
 	-s EXPORTED_FUNCTIONS='["_emhugoen"]'
+
+#	-s EMTERPRETIFY_FILE='"hugo.js.bin"' \
+#	-s EMTERPRETIFY_WHITELIST='["_CallRoutine","_emhugoen","_GetCommand","_glem_fileref_create_by_prompt","_glem_select","_gidispatch_call","_glk_fileref_create_by_prompt","_glk_select","_hugo_getline","_hugo_timewait","_hugo_waitforkey","_InitGame","_PromptMore","_RunGame","_RunInput","_RunRoutine","_RunSystem"]' \
 
 include $(GLKINCLUDEDIR)/Make.$(GLK)
 

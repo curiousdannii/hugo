@@ -20,7 +20,8 @@ var GiDispa
 var Glk
 
 var default_options = {
-	memdir: '',
+	name: 'hugo',
+	//resourcepath: '', // Path to additional resources (.mem, .bin, etc)
 }
 
 // Give this Emscripten module the Quixe API
@@ -101,5 +102,51 @@ var Module = {
 		}
 		delete this.memoryInitializerRequest
 	},
+
+	// Load resources
+	/*loadResources: function( callback )
+	{
+		const options = this.options
+		const basepath = options.resourcepath + '/' + options.name
+		var emptPromise, memPromise
+
+		if ( ENVIRONMENT_IS_NODE )
+		{
+			const fs = require( 'fs' )
+			emptPromise = new Promise( function( resolve, reject )
+			{
+				fs.readFile( basepath + '.js.bin', function( err, data )
+				{
+					if ( err )
+					{
+						reject( err )
+					}
+					else
+					{
+						resolve( new ArrayBuffer( data ) )
+					}
+				})
+			})
+			memPromise = Promise.resolve()
+		}
+		if ( ENVIRONMENT_IS_WEB )
+		{
+			emptPromise = fetch( basepath + '.js.bin' ).then( function ( response ) { return response.arrayBuffer() } )
+			memPromise = fetch( basepath + '.js.mem' ).then( function ( response ) { return response.arrayBuffer() } )
+		}
+		delete this.memoryInitializerRequest
+
+		Promise.all( emptPromise, memPromise )
+			.then( function( values )
+			{
+				var emptData = values[0], memData = values[1]
+				Module.emterpreterFile = emptData
+				if ( ENVIRONMENT_IS_WEB )
+				{
+					HEAPU8.set( memData, Runtime.GLOBAL_BASE )
+				}
+				callback()
+			})
+	},*/
 
 }

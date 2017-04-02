@@ -27,6 +27,8 @@ CC = emcc \
 	-s EXPORT_NAME='"Hugo"' \
 	-s EXPORTED_FUNCTIONS='["_emhugoen"]'
 
+#	-s ASYNCIFY=1 \
+#	-s ASYNCIFY_FUNCTIONS='["glem_fileref_create_by_prompt","glem_select"]' \
 #	-s EMTERPRETIFY_FILE='"hugo.js.bin"' \
 #	-s EMTERPRETIFY_WHITELIST='["_CallRoutine","_emhugoen","_GetCommand","_glem_fileref_create_by_prompt","_glem_select","_gidispatch_call","_glk_fileref_create_by_prompt","_glk_select","_hugo_getline","_hugo_timewait","_hugo_waitforkey","_InitGame","_PromptMore","_RunGame","_RunInput","_RunRoutine","_RunSystem"]' \
 
@@ -46,7 +48,7 @@ NONPORTABLE_OBJS=he$(PORT_NAME).$(OBJ_EXT) emhugoen.$(OBJ_EXT)
 
 OBJS=he.$(OBJ_EXT) heexpr.$(OBJ_EXT) hemisc.$(OBJ_EXT) heobject.$(OBJ_EXT) heparse.$(OBJ_EXT) heres.$(OBJ_EXT) herun.$(OBJ_EXT) heset.$(OBJ_EXT) stringfn.$(OBJ_EXT) $(NONPORTABLE_OBJS)
 
-hugo.js: Makefile pre.js post.js $(OBJS) $(GLKINCLUDEDIR)/Make.$(GLK) $(GLKINCLUDEDIR)/libemglken.a
+hugo.js: Makefile pre.js post.js $(OBJS) $(GLKINCLUDEDIR)/Make.$(GLK) $(GLKINCLUDEDIR)/libemglken.a $(GLKINCLUDEDIR)/library.js
 	$(LINK) -o $(TARGET) $(OBJS) -L$(GLK_DIR) -L$(XLIB_DIR) -lX11 $(GLKLIB)
 
 clean:

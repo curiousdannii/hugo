@@ -61,7 +61,7 @@ var Module = {
 			null,
 			[ 'array', 'number' ],
 			[ this.data, this.data.length ],
-			{ async: true }
+			typeof EmterpreterAsync === 'undefined' ? {} : { async: true }
 		)
 		delete this.data
 	},

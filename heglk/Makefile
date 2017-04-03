@@ -24,13 +24,13 @@ CC = emcc \
 	--post-js post.js \
 	-s EMTERPRETIFY=1 \
 	-s EMTERPRETIFY_ASYNC=1 \
+	-s EMTERPRETIFY_WHITELIST='["_AP", "_AddAllObjects", "_Available", "_CallLibraryParse", "_CallRoutine", "_ContextCommand", "_Dict", "_DisplayPicture", "_EvalExpr", "_FileIO", "_Flushpbuffer", "_GetCommand", "_GetProp", "_GetResourceParameters", "_GetVal", "_GetValue", "_InitGame", "_IsIncrement", "_LoadGame", "_MatchCommand", "_MatchObject", "_MatchWord", "_Name", "_ObjWordType", "_Parse", "_ParseError", "_PlayMusic", "_PlaySample", "_PlayVideo", "_Printout", "_PromptMore", "_RecordCommands", "_RestoreGameData", "_RunEvents", "_RunGame", "_RunIf", "_RunInput", "_RunMove", "_RunPrint", "_RunRestart", "_RunRestore", "_RunRoutine", "_RunSave", "_RunScriptSet", "_RunSet", "_RunString", "_RunSystem", "_RunWindow", "_SetCompound", "_SetupExpr", "_TryObj", "_ValidObj", "_emhugoen", "_glem_fileref_create_by_prompt", "_glem_select", "_glk_fileref_create_by_prompt", "_glk_select", "_hugo_getline", "_hugo_timewait", "_hugo_waitforkey"]' \
 	-s EXPORT_NAME='"Hugo"' \
 	-s EXPORTED_FUNCTIONS='["_emhugoen"]'
 
 #	-s ASYNCIFY=1 \
 #	-s ASYNCIFY_FUNCTIONS='["glem_fileref_create_by_prompt","glem_select"]' \
 #	-s EMTERPRETIFY_FILE='"hugo.js.bin"' \
-#	-s EMTERPRETIFY_WHITELIST='["_CallRoutine","_emhugoen","_GetCommand","_glem_fileref_create_by_prompt","_glem_select","_gidispatch_call","_glk_fileref_create_by_prompt","_glk_select","_hugo_getline","_hugo_timewait","_hugo_waitforkey","_InitGame","_PromptMore","_RunGame","_RunInput","_RunRoutine","_RunSystem"]' \
 
 include $(GLKINCLUDEDIR)/Make.$(GLK)
 

@@ -941,10 +941,7 @@ void FileIO(void)
 
 		fref = glk_fileref_create_by_name(fileusage_Data | fileusage_BinaryMode,
 			fileiopath, 0);
-		if (glk_fileref_does_file_exist(fref))
-			io = glk_stream_open_file(fref, filemode_Read, 0);
-		else
-			io = NULL;
+		io = glk_stream_open_file(fref, filemode_Write, 0);
 		glk_fileref_destroy(fref);
 		if (io==NULL) goto LeaveFileIO;
 #endif
@@ -961,7 +958,10 @@ void FileIO(void)
 
 		fref = glk_fileref_create_by_name(fileusage_Data | fileusage_BinaryMode,
 			fileiopath, 0);
-		io = glk_stream_open_file(fref, filemode_Read, 0);
+		if (glk_fileref_does_file_exist(fref))
+			io = glk_stream_open_file(fref, filemode_Read, 0);
+		else
+			io = NULL;
 		glk_fileref_destroy(fref);
 		if (io==NULL) goto LeaveFileIO;
 #endif

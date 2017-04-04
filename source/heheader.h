@@ -9,11 +9,11 @@
 
 
 #define HEVERSION 3
-#define HEREVISION 1
+#define HEREVISION 3
 #if !defined (COMPILE_V25)
-#define HEINTERIM ".03"
+#define HEINTERIM ".0"
 #else
-#define HEINTERIM ".03 (2.5)"
+#define HEINTERIM ".0 (2.5)"
 #endif
 
 #include <string.h>

@@ -1,7 +1,7 @@
 # heglk makefile for emglken
 
 GLK = emglken
-TARGET=hugo.js
+TARGET=hugo-core.js
 
 # Directory defaults--these may have to be changed depending on where
 # things live on your system.  It assumes the layout:
@@ -18,19 +18,19 @@ PORT_NAME=glk
 
 GLKINCLUDEDIR = $(GLK_DIR)
 CC = emcc \
-	-O3 \
+	-O3
+
+LINK_OPTS = \
 	--js-library $(GLKINCLUDEDIR)/library.js \
-	--pre-js pre.js \
-	--post-js post.js \
 	-s EMTERPRETIFY=1 \
 	-s EMTERPRETIFY_ASYNC=1 \
-	-s EMTERPRETIFY_WHITELIST='["_AP", "_AddAllObjects", "_Available", "_CallLibraryParse", "_CallRoutine", "_ContextCommand", "_Dict", "_DisplayPicture", "_EvalExpr", "_FileIO", "_Flushpbuffer", "_GetCommand", "_GetProp", "_GetResourceParameters", "_GetVal", "_GetValue", "_InitGame", "_IsIncrement", "_LoadGame", "_MatchCommand", "_MatchObject", "_MatchWord", "_Name", "_ObjWordType", "_Parse", "_ParseError", "_PlayMusic", "_PlaySample", "_PlayVideo", "_Printout", "_PromptMore", "_RecordCommands", "_RestoreGameData", "_RunEvents", "_RunGame", "_RunIf", "_RunInput", "_RunMove", "_RunPrint", "_RunRestart", "_RunRestore", "_RunRoutine", "_RunSave", "_RunScriptSet", "_RunSet", "_RunString", "_RunSystem", "_RunWindow", "_SetCompound", "_SetupExpr", "_TryObj", "_ValidObj", "_emhugoen", "_glem_fileref_create_by_prompt", "_glem_select", "_glk_fileref_create_by_prompt", "_glk_select", "_hugo_getline", "_hugo_timewait", "_hugo_waitforkey"]' \
-	-s EXPORT_NAME='"Hugo"' \
-	-s EXPORTED_FUNCTIONS='["_emhugoen"]'
+	-s EMTERPRETIFY_FILE='"hugo-core.js.bin"' \
+	-s EMTERPRETIFY_WHITELIST='"@whitelist.json"' \
+	-s EXPORTED_FUNCTIONS='["_emhugoen"]' \
+	-s MODULARIZE=1
 
 #	-s ASYNCIFY=1 \
 #	-s ASYNCIFY_FUNCTIONS='["glem_fileref_create_by_prompt","glem_select"]' \
-#	-s EMTERPRETIFY_FILE='"hugo.js.bin"' \
 
 include $(GLKINCLUDEDIR)/Make.$(GLK)
 
@@ -48,11 +48,11 @@ NONPORTABLE_OBJS=he$(PORT_NAME).$(OBJ_EXT) emhugoen.$(OBJ_EXT)
 
 OBJS=he.$(OBJ_EXT) heexpr.$(OBJ_EXT) hemisc.$(OBJ_EXT) heobject.$(OBJ_EXT) heparse.$(OBJ_EXT) heres.$(OBJ_EXT) herun.$(OBJ_EXT) heset.$(OBJ_EXT) stringfn.$(OBJ_EXT) $(NONPORTABLE_OBJS)
 
-hugo.js: Makefile pre.js post.js $(OBJS) $(GLKINCLUDEDIR)/Make.$(GLK) $(GLKINCLUDEDIR)/libemglken.a $(GLKINCLUDEDIR)/library.js
-	$(LINK) -o $(TARGET) $(OBJS) -L$(GLK_DIR) -L$(XLIB_DIR) -lX11 $(GLKLIB)
+hugo-core.js: Makefile $(OBJS) $(GLKINCLUDEDIR)/Make.$(GLK) $(GLKINCLUDEDIR)/libemglken.a $(GLKINCLUDEDIR)/library.js
+	$(LINK) $(LINK_OPTS) -o $(TARGET) $(OBJS) -L$(GLK_DIR) -L$(XLIB_DIR) -lX11 $(GLKLIB)
 
 clean:
-	rm -f $(OBJS) hugo.js*
+	rm -f $(OBJS) hugo-core.js*
 
 # Portable sources:
 

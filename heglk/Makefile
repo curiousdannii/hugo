@@ -56,6 +56,8 @@ clean:
 
 # Portable sources:
 
+$(OBJS): $(SOURCE_DIR)/heheader.h
+
 he.$(OBJ_EXT): $(SOURCE_DIR)/he.c
 	$(COMPILE) $(CFLAGS) $(SOURCE_DIR)/he.c
 

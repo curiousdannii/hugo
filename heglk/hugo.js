@@ -23,9 +23,9 @@ class Hugo extends EmglkenVM
 		}
 	}
 	
-	start()
+	async start()
 	{
-		const data_stream = this.options.Glk.glk_stream_open_memory( this.data, 2, 0 )
+		const data_stream = await this.options.Glk.glk_stream_open_memory( this.data, 2, 0 )
 		this.vm['_emhugoen']( data_stream.disprock )
 		delete this.data
 	}

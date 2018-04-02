@@ -9,7 +9,8 @@ https://github.com/curiousdannii/emglken
 
 */
 
-const EmglkenVM = require( '../../emglken/emglken_vm.js' )
+const EmglkenVM = require( '../../emglken/include/vm.js' )
+const create_fake_stream = require( '../../emglken/include/create_fake_stream.js' )
 
 class Hugo extends EmglkenVM
 {
@@ -25,8 +26,8 @@ class Hugo extends EmglkenVM
 	
 	start()
 	{
-		const data_stream = this.options.Glk.glk_stream_open_memory( this.data, 2, 0 )
-		this.vm['_emhugoen']( data_stream.disprock )
+		const data_stream = create_fake_stream( this.data, 0, this.options.GiDispa )
+		this.vm['_emhugoen']( data_stream.addr )
 		delete this.data
 	}
 

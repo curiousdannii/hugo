@@ -9,7 +9,7 @@
 #include "glk.h"
 #include "emglken.h"
 
-extern void emhugoen( glui32 gameStreamTag );
+extern void emhugoen( strid_t gameStream );
 
 extern winid_t mainwin;
 extern winid_t currentwin;

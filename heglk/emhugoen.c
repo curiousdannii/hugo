@@ -6,7 +6,7 @@
 #include "heheader.h"
 #include "emhugoen.h"
 
-void emhugoen( glui32 gameStreamTag )
+void emhugoen( strid_t gamestream )
 {
 	// Initialise emglken
 	init_emglken();
@@ -23,7 +23,7 @@ void emhugoen( glui32 gameStreamTag )
 		return;
 
 	// Set up the game stream
-	game = gli_new_stream( strtype_File, gameStreamTag, 0 );
+	game = gamestream;
 
 	time_t seed;
 

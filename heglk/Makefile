@@ -27,7 +27,8 @@ LINK_OPTS = \
 	-s EMTERPRETIFY_FILE='"hugo-core.js.bin"' \
 	-s EMTERPRETIFY_WHITELIST='"@whitelist.json"' \
 	-s EXPORTED_FUNCTIONS='["_emhugoen"]' \
-	-s MODULARIZE=1
+	-s MODULARIZE=1 \
+	-s WASM=0
 
 #	-s ASYNCIFY=1 \
 #	-s ASYNCIFY_FUNCTIONS='["glem_fileref_create_by_prompt","glem_select"]' \

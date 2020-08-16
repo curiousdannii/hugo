@@ -1,3 +1,5 @@
+# This repository is now archived. Please refer to https://github.com/0branch/hugo-unix instead
+
 Hugo
 ----
 
